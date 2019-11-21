@@ -23,17 +23,28 @@ import ai.tock.bot.connector.web.webButton
 import ai.tock.bot.connector.web.webMessage
 import ai.tock.bot.definition.Intent
 import ai.tock.shared.property
+import services.PostServiceImpl
+import java.net.URL
 
-val apiKey = property("tock_bot_api_key", "MY API KEY")
+val apiKey = property("tock_bot_api_key", "a1989493-bf8a-42a6-bbdf-8c8318bd36eb")
 
 val bot = newBot(
     apiKey,
     newStory("greetings") {
+
         end("Hello $message")
     },
+        newStory("posts") {
+            PostServiceImpl.getPosts()
+        },
     newStory("card") {
         //cleanup entities
         val test = entityText("location")
+
+        val result = URL("http://1eca3506.ngrok.io/posts/paris").readText()
+
+        // val post = PostServiceImpl.getPosts()
+        System.out.println("post:");
         entities.clear()
         end(
             newCard(
