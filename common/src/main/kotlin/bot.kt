@@ -19,11 +19,13 @@ package ai.tock.demo.common
 import ai.tock.bot.api.client.newBot
 import ai.tock.bot.api.client.newStory
 import ai.tock.bot.api.client.unknownStory
+import ai.tock.bot.api.model.message.bot.Card
 import ai.tock.bot.connector.web.webButton
 import ai.tock.bot.connector.web.webMessage
 import ai.tock.bot.definition.Intent
+import ai.tock.demo.common.models.ResponsePost
+import ai.tock.demo.common.models.ResponsePostGoogle
 import ai.tock.shared.property
-import services.PostServiceImpl
 import java.net.URL
 
 val apiKey = property("tock_bot_api_key", "a1989493-bf8a-42a6-bbdf-8c8318bd36eb")
@@ -35,16 +37,13 @@ val bot = newBot(
         end("Hello $message")
     },
         newStory("posts") {
-            PostServiceImpl.getPosts()
         },
     newStory("card") {
         //cleanup entities
         val test = entityText("location")
+        val result = URL("http://021e6fb7.ngrok.io/posts_by_cat/marseille/bar").readText()
+        val posts = ResponsePostGoogle(result)
 
-        val result = URL("http://1eca3506.ngrok.io/posts/paris").readText()
-
-        // val post = PostServiceImpl.getPosts()
-        System.out.println("post:");
         entities.clear()
         end(
             newCard(
@@ -57,26 +56,25 @@ val bot = newBot(
         )
     },
     newStory("carousel") {
-        end(
-            newCarousel(
-                listOf(
-                    newCard(
-                        "Card 1",
-                        null,
-                        newAttachment("https://upload.wikimedia.org/wikipedia/commons/2/22/Heckert_GNU_white.svg"),
-                        newAction("Action1"),
-                        newAction("Tock", "https://doc.tock.ai")
-                    ),
-                    newCard(
-                        "Card 2",
-                        null,
-                        newAttachment("https://doc.tock.ai/fr/images/header.jpg"),
-                        newAction("Action1"),
-                        newAction("Tock", "https://doc.tock.ai")
-                    )
-                )
+        val result = URL("http://021e6fb7.ngrok.io/posts/paris").readText()
+
+        val posts = ResponsePost(result)
+        System.out.println(posts)
+
+        val cards : List<Card>? = posts.data?.map {
+            newCard(
+                    it.title,
+                    null,
+                    newAttachment( "https://upload.wikimedia.org/wikipedia/commons/2/22/Heckert_GNU_white.svg"),
+                    newAction("Action1"),
+                    newAction("Tock", "https://doc.tock.ai")
             )
-        )
+        }
+        if (cards != null) {
+           end( newCarousel( cards ) )
+        }else{
+            end("error")
+        }
     },
     unknownStory {
         end {

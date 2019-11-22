@@ -47,6 +47,9 @@
         <plugin.dokka.version>0.9.18</plugin.dokka.version>
 
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
+
+        <serialization.version>0.14.0</serialization.version>
+
     </properties>
 
     <modules>
@@ -87,16 +90,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
-            <groupId>com.squareup.retrofit2</groupId>
-            <artifactId>retrofit</artifactId>
-            <version>2.3.0</version>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20190722</version>
         </dependency>
-        <dependency>
-            <groupId>com.squareup.retrofit2</groupId>
-            <artifactId>converter-gson</artifactId>
-            <version>2.3.0</version>
-        </dependency>
+
+
 
     </dependencies>
 
