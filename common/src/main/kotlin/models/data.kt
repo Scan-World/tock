@@ -28,4 +28,5 @@ class ResponsePostGoogle(json: String) : JSONObject(json) {
 class PostGoogle(json: String) : JSONObject(json) {
     val name: String? = this.optString("name")
     val url: String? = this.optString("url")
+    val formatted_address: String? = this.optString("formatted_address")
 }
