@@ -20,18 +20,19 @@
     TockReact.renderChat(
         document.getElementById('app'),
         //Set your web connector url here
-        'http://localhost:8080/[relative web connector rest path]',
+        // 'http://localhost:8080/io/mathias-gabriel/new_assistant/web',
+        'https://demo-bot.tock.ai/io/mathias-gabriel/new_assistant/web',
         //options: https://github.com/theopenconversationkit/tock-react-kit/blob/master/src/TockTheme.ts
         {
             fontFamily: 'Montserrat, Arial, Helvetica, sans-serif',
             fontSize: '16px',
-            botColor: '#0A2342',
+            botColor: '#A1006B',
             cardColor: '#FFFDF7',
             borderRadius: '1em',
             styles: {
-                chat: `background-image: radial-gradient(circle 79vh at bottom center, #84BC9C, #2CA58D);`,
-                quickReply: `background: #F46197; color: #FFFDF7; border-color: #FFFDF7;`,
-                card: `& button { background: #F46197; color: #FFFDF7; border-color: #FFFDF7; }`
+                chat: `background-image: radial-gradient(circle 79vh at bottom center, #E05206, #D52B1E);`,
+                quickReply: `background: #FFB612; color: #333333; border-color: #D52B1E;`,
+                card: `border-color: #CD0037; & button { background: #CD0037; color: #FFFDF7; border-color: #CD0037; }`
             }
         }
     );
